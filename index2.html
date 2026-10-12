@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<!--
+  고칠 곳 안내 (○○로 표시된 부분과 아래 항목을 본인 내용으로 바꾸세요)
+  1. <title>과 헤더의 "내 작업 노트"  → 원하는 제목
+  2. 소개 문구 (○○)                    → 본인 이야기
+  3. 게임 링크: href="https://사용자명.github.io/저장소명/"  → 실제 게임 주소
+  4. "준비 중" 작업 카드 두 개           → 실제 작업으로 교체하거나 삭제
+  5. 연락 이메일: example@email.com     → 본인 이메일
+-->
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="만들고, 써 보고, 고치며 배우는 과정을 모아 둔 작업 노트입니다.">
+  <title>내 작업 노트</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f3f7fd;
+      --grid: #d6e0f0;
+      --ink: #17264a;
+      --muted: #55658a;
+      --margin: #e5484d;
+      --hl: #ffe66d;
+      --card: #ffffff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 16px; }
+    body {
+      font-family: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      font-size: 1.0625rem;
+      line-height: 1.75;
+      color: var(--ink);
+      background-color: var(--paper);
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    a { color: inherit; }
+    a:focus-visible, .btn:focus-visible {
+      outline: 3px solid var(--margin);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+    .skip {
+      position: absolute; left: 12px; top: -60px;
+      background: var(--ink); color: #fff; padding: 8px 14px; border-radius: 6px;
+      z-index: 10; transition: top .15s;
+    }
+    .skip:focus { top: 12px; }
+
+    /* 노트 한 장 느낌: 왼쪽 빨간 여백선 */
+    .page {
+      max-width: 744px;
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 28px 22px 72px 34px;
+      border-left: 2px solid var(--margin);
+    }
+
+    header .brand {
+      font-family: "Gaegu", "Noto Sans KR", cursive;
+      font-weight: 700;
+      font-size: 1.7rem;
+      line-height: 1.2;
+    }
+    nav { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px; }
+    nav a {
+      text-decoration: none;
+      font-size: .95rem;
+      font-weight: 500;
+      padding: 3px 14px;
+      border: 2px solid var(--ink);
+      border-bottom-width: 4px;
+      border-radius: 10px 10px 4px 4px;
+      background: var(--card);
+    }
+    nav a:hover { background: var(--hl); }
+
+    .hero { margin-top: 64px; }
+    h1 {
+      font-family: "Gaegu", "Noto Sans KR", cursive;
+      font-weight: 700;
+      font-size: clamp(2.6rem, 8vw, 3.9rem);
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+    }
+    .lead {
+      margin-top: 18px;
+      max-width: 32em;
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+
+    section { margin-top: 64px; }
+    h2 {
+      display: inline-block;
+      font-family: "Gaegu", "Noto Sans KR", cursive;
+      font-weight: 700;
+      font-size: 2.1rem;
+      line-height: 1.2;
+      padding: 0 6px;
+      margin-left: -6px;
+      background: linear-gradient(transparent 62%, var(--hl) 62%);
+    }
+    section > p, section > ul { margin-top: 14px; max-width: 36em; }
+
+    /* 대표 작업 카드 */
+    .feature {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: 96px 1fr;
+      gap: 20px;
+      align-items: start;
+      padding: 20px;
+      background: var(--card);
+      border: 2px solid var(--ink);
+      border-radius: 14px;
+      box-shadow: 5px 5px 0 var(--ink);
+    }
+    .screen {
+      width: 96px; height: 96px;
+      border-radius: 12px;
+      background-color: var(--ink);
+      background-image:
+        radial-gradient(1.5px 1.5px at 14px 18px, #8fa8ff 99%, transparent),
+        radial-gradient(1.5px 1.5px at 78px 12px, #cfe0ff 99%, transparent),
+        radial-gradient(1.5px 1.5px at 84px 62px, #8fa8ff 99%, transparent),
+        radial-gradient(1.5px 1.5px at 22px 70px, #cfe0ff 99%, transparent);
+      display: grid; place-items: center;
+      transform: rotate(-4deg);
+    }
+    .screen svg { width: 56px; height: auto; display: block; }
+    h3 { font-size: 1.15rem; font-weight: 700; line-height: 1.4; }
+    .feature p, .work p { margin-top: 6px; color: var(--muted); font-size: 1rem; line-height: 1.7; }
+    .chip {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: .82rem;
+      font-weight: 500;
+      line-height: 1.6;
+      padding: 0 11px;
+      border: 1.5px solid var(--ink);
+      border-radius: 999px;
+      background: var(--card);
+    }
+    .chip.done { background: var(--hl); }
+    .btn {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 9px 18px;
+      background: var(--ink);
+      color: #fff;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 8px;
+      box-shadow: 3px 3px 0 var(--margin);
+      transition: transform .12s, box-shadow .12s;
+    }
+    .btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--margin); }
+
+    .work {
+      margin-top: 14px;
+      padding: 14px 18px;
+      border: 2px dashed var(--muted);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .65);
+    }
+
+    li::marker { color: var(--margin); }
+    section ul { padding-left: 1.3em; }
+    section li + li { margin-top: 4px; }
+
+    footer { margin-top: 80px; color: var(--muted); font-size: .9rem; }
+
+    @media (max-width: 520px) {
+      .page { padding: 20px 16px 56px 20px; }
+      .hero { margin-top: 44px; }
+      section { margin-top: 52px; }
+      .feature { grid-template-columns: 1fr; box-shadow: 4px 4px 0 var(--ink); }
+      .screen { width: 84px; height: 84px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .btn { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">본문으로 건너뛰기</a>
+
+  <div class="page">
+    <header>
+      <p class="brand">내 작업 노트</p>
+      <nav aria-label="페이지 메뉴">
+        <a href="#about">소개</a>
+        <a href="#works">작업</a>
+        <a href="#now">배우는 것</a>
+        <a href="#contact">연락</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <div class="hero">
+        <h1>만들고, 써 보고,<br>고치는 중입니다</h1>
+        <p class="lead">○○에 관심이 많은 ○○입니다. 요즘 만든 것들을 한곳에 모아 두었습니다.</p>
+      </div>
+
+      <section id="about">
+        <h2>소개</h2>
+        <p>작은 것을 직접 만들어 보고, 다른 사람이 써 보는 모습을 보며 고쳐 가는 연습을 하고 있습니다. 아직 배우는 단계라서 완성한 것과 구상 중인 것을 함께 적어 두었습니다.</p>
+      </section>
+
+      <section id="works">
+        <h2>작업</h2>
+
+        <article class="feature">
+          <div class="screen" aria-hidden="true">
+            <svg id="ship" viewBox="0 0 13 10" shape-rendering="crispEdges"></svg>
+          </div>
+          <div>
+            <h3>갤러그 스타일 슈팅 게임</h3>
+            <span class="chip done">완성</span>
+            <p>HTML, CSS, JavaScript만으로 만든 아케이드 게임입니다. 적이 편대를 이루고 급강하하며, 키보드와 터치로 모두 할 수 있습니다.</p>
+            <a class="btn" href="https://사용자명.github.io/저장소명/">게임 하러 가기</a>
+          </div>
+        </article>
+
+        <article class="work">
+          <h3>○○ 만들기</h3>
+          <span class="chip">준비 중</span>
+          <p>여기에 다음 작업을 한두 문장으로 적습니다.</p>
+        </article>
+
+        <article class="work">
+          <h3>○○ 정리 노트</h3>
+          <span class="chip">아이디어</span>
+          <p>아직 구상 중인 작업도 이렇게 적어 둘 수 있습니다.</p>
+        </article>
+      </section>
+
+      <section id="now">
+        <h2>배우는 것</h2>
+        <ul>
+          <li>HTML로 내용을 나누고 CSS로 모양 바꾸기</li>
+          <li>GitHub Pages로 만든 것을 주소 하나로 공유하기</li>
+          <li>써 보는 사람의 반응을 보고 한 가지씩 고치기</li>
+        </ul>
+      </section>
+
+      <section id="contact">
+        <h2>연락</h2>
+        <p>작업에 대한 의견이나 질문은 <a href="mailto:example@email.com">example@email.com</a>으로 보내 주세요.</p>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 내 작업 노트</p>
+    </footer>
+  </div>
+
+  <script>
+    /* 게임 속 플레이어 기체를 픽셀 아이콘으로 그립니다 */
+    (function () {
+      var rows = [
+        '......W......',
+        '......W......',
+        '.....WWW.....',
+        '.....WCW.....',
+        '..R..WWW..R..',
+        '..R.WWWWW.R..',
+        '.RRWWWBWWWRR.',
+        '.RWWWWBWWWWR.',
+        'WWWWWWWWWWWWW',
+        'WW.WW...WW.WW'
+      ];
+      var color = { W: '#f4f6ff', R: '#ff4b4b', B: '#2f8bff', C: '#58f0ff' };
+      var svg = document.getElementById('ship');
+      var NS = 'http://www.w3.org/2000/svg';
+      rows.forEach(function (row, y) {
+        row.split('').forEach(function (ch, x) {
+          if (ch === '.') return;
+          var r = document.createElementNS(NS, 'rect');
+          r.setAttribute('x', x); r.setAttribute('y', y);
+          r.setAttribute('width', 1); r.setAttribute('height', 1);
+          r.setAttribute('fill', color[ch]);
+          svg.appendChild(r);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
